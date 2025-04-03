@@ -1,23 +1,23 @@
 # Use an official Node.js runtime as a parent image
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Set working directory in the container
 WORKDIR /app
 
 # Copy package.json and package-lock.json before installing dependencies
-COPY package.json yarn.lock ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN yarn install
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
 # Build Strapi
-RUN yarn build
+RUN npm run build
 
 # Expose port 1337
 EXPOSE 1337
 
 # Start Strapi
-CMD ["yarn", "start"]
+CMD ["npm","run", "start"]
