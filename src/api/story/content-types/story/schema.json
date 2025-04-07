@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stories",
+  "info": {
+    "singularName": "story",
+    "pluralName": "stories",
+    "displayName": "Story"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "author": {
+      "type": "string"
+    },
+    "published": {
+      "type": "date"
+    },
+    "cover_image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "audio": {
+      "allowedTypes": [
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "content": {
+      "type": "blocks"
+    },
+    "age_range": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::age-range.age-range",
+      "inversedBy": "stories"
+    },
+    "story_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::story-type.story-type",
+      "inversedBy": "stories"
+    },
+    "favorites": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::favorite.favorite",
+      "mappedBy": "story"
+    }
+  }
+}

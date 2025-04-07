@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "age_ranges",
+  "info": {
+    "singularName": "age-range",
+    "pluralName": "age-ranges",
+    "displayName": "Age Range"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "min": {
+      "type": "integer"
+    },
+    "max": {
+      "type": "integer"
+    },
+    "stories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::story.story",
+      "mappedBy": "age_range"
+    }
+  }
+}
