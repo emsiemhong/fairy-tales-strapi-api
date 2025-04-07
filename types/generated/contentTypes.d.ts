@@ -467,6 +467,7 @@ export interface ApiStoryTypeStoryType extends Struct.CollectionTypeSchema {
 export interface ApiStoryStory extends Struct.CollectionTypeSchema {
   collectionName: 'stories';
   info: {
+    description: '';
     displayName: 'Story';
     pluralName: 'stories';
     singularName: 'story';
@@ -492,7 +493,6 @@ export interface ApiStoryStory extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
       Schema.Attribute.Private;
-    published: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
     story_type: Schema.Attribute.Relation<
       'manyToOne',
