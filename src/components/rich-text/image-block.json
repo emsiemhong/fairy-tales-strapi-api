@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_rich_text_image_blocks",
+  "info": {
+    "displayName": "Image Block"
+  },
+  "options": {},
+  "attributes": {
+    "image_block": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

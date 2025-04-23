@@ -482,13 +482,20 @@ export interface ApiStoryStory extends Struct.CollectionTypeSchema {
     >;
     audio: Schema.Attribute.Media<'audios'>;
     author: Schema.Attribute.String;
-    content: Schema.Attribute.Blocks;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
     cover_image: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     favorites: Schema.Attribute.Relation<'oneToMany', 'api::favorite.favorite'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
@@ -498,6 +505,7 @@ export interface ApiStoryStory extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::story-type.story-type'
     >;
+    summary: Schema.Attribute.Text;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

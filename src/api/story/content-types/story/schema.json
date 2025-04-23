@@ -37,9 +37,6 @@
         "audios"
       ]
     },
-    "content": {
-      "type": "blocks"
-    },
     "age_range": {
       "type": "relation",
       "relation": "manyToOne",
@@ -57,6 +54,20 @@
       "relation": "oneToMany",
       "target": "api::favorite.favorite",
       "mappedBy": "story"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "content": {
+      "type": "customField",
+      "options": {
+        "preset": "defaultHtml"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "summary": {
+      "type": "text"
     }
   }
 }
