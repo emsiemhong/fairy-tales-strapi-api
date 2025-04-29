@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import story from './story';
 
 export default factories.createCoreController('api::story.story', ({ strapi }) => ({
   async favorite(ctx) {
@@ -11,6 +12,12 @@ export default factories.createCoreController('api::story.story', ({ strapi }) =
 
     if (!storyId) {
       return ctx.badRequest('Missing storyId');
+    }
+
+    const story = await strapi.entityService.findOne("api::story.story", storyId);
+
+    if (!story) {
+      return ctx.notFound('Not found story with id = ' + storyId);
     }
 
     const userData = await strapi.entityService.findOne('plugin::users-permissions.user', user.id, {
