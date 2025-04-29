@@ -9,7 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -67,9 +67,9 @@
     },
     "favorites": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::favorite.favorite",
-      "mappedBy": "users_permissions_user"
+      "relation": "manyToMany",
+      "target": "api::story.story",
+      "inversedBy": "favorited_by"
     }
   }
 }

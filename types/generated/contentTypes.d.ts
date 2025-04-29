@@ -400,39 +400,6 @@ export interface ApiAgeRangeAgeRange extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiFavoriteFavorite extends Struct.CollectionTypeSchema {
-  collectionName: 'favorites';
-  info: {
-    description: '';
-    displayName: 'Favorite';
-    pluralName: 'favorites';
-    singularName: 'favorite';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::favorite.favorite'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    story: Schema.Attribute.Relation<'manyToOne', 'api::story.story'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-  };
-}
-
 export interface ApiStoryTypeStoryType extends Struct.CollectionTypeSchema {
   collectionName: 'story_types';
   info: {
@@ -496,7 +463,10 @@ export interface ApiStoryStory extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    favorites: Schema.Attribute.Relation<'oneToMany', 'api::favorite.favorite'>;
+    favorited_by: Schema.Attribute.Relation<
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::story.story'> &
       Schema.Attribute.Private;
@@ -968,7 +938,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -982,7 +951,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    favorites: Schema.Attribute.Relation<'oneToMany', 'api::favorite.favorite'>;
+    favorites: Schema.Attribute.Relation<'manyToMany', 'api::story.story'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1024,7 +993,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::age-range.age-range': ApiAgeRangeAgeRange;
-      'api::favorite.favorite': ApiFavoriteFavorite;
       'api::story-type.story-type': ApiStoryTypeStoryType;
       'api::story.story': ApiStoryStory;
       'plugin::content-releases.release': PluginContentReleasesRelease;
